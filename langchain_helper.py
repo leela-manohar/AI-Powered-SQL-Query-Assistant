@@ -8,7 +8,7 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains.sql_database.prompt import PROMPT_SUFFIX
 
-from few_shots import few_shots  # Your few-shot examples in a separate file
+from few_shots import few_shots 
 
 import os
 from dotenv import load_dotenv
@@ -59,10 +59,10 @@ def get_few_shot_db_chain():
     db_uri = f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}"
     db = CleanSQLDatabase.from_uri(db_uri, sample_rows_in_table_info=3)
 
-    # ✅ Gemini LLM instead of Groq
+    
     llm = ChatGoogleGenerativeAI(
         model="gemini-1.5-flash",
-        api_key=os.getenv("GOOGLE_API_KEY"),   # or "gemini-1.5-pro"
+        api_key=os.getenv("GOOGLE_API_KEY"),  
         temperature=0.1,
         convert_system_message_to_human=True
     )
@@ -112,3 +112,4 @@ def get_few_shot_db_chain():
         prompt=few_shot_prompt,
     )
     return chain
+
